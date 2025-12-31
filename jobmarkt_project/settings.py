@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-%%36$o7353-m8aot_%q%ull34%+9^fsp6^$w3v)n8tdl&m9nq^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # Allow all hosts for development
+ALLOWED_HOSTS = ['job.digitalrepublic.space', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',  # CORS support
     'registrations',  # Our custom app
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # CORS middleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -160,3 +162,18 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@jobmarkt.com')
+
+# CORS Configuration
+CORS_ALLOWED_ORIGINS = [
+    'https://job.digitalrepublic.space',
+    'http://localhost:3000',  # React dev server
+    'http://127.0.0.1:3000',  # React dev server
+    'http://localhost:8000',  # Django dev server
+    'http://127.0.0.1:8000',  # Django dev server
+]
+
+# Allow credentials in CORS requests
+CORS_ALLOW_CREDENTIALS = True
+
+# Allow all headers (adjust as needed for production)
+CORS_ALLOW_ALL_ORIGINS = False  # Only allow specific origins listed above
