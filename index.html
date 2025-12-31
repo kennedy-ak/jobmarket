@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobmarkt - Employment Platform for Ghanaian Job Seekers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Styles */
+        :root {
+            --primary: #0d6efd;
+            --primary-dark: #0b5ed7;
+            --secondary: #198754;
+            --accent: #ffc107;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --border: #dee2e6;
+            --gh-green: #006b3f;
+            --gh-yellow: #fcd116;
+            --gh-red: #ce1126;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 16px;
+            text-align: center;
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #157347;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        .btn-accent:hover {
+            background-color: #ffca2c;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--gh-green);
+            line-height: 1.3;
+        }
+        
+        /* Language Toggle */
+        .language-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            background: white;
+            border-radius: 30px;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+        }
+        
+        .lang-btn {
+            padding: 8px 15px;
+            border: none;
+            background: transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gh-green);
+            z-index: 101;
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+            margin-right: 8px;
+        }
+        
+        .logo span {
+            color: var(--gh-red);
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 99;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+        
+        nav.active {
+            right: 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        nav ul li {
+            margin: 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        nav ul li:last-child {
+            border-bottom: none;
+        }
+        
+        nav ul li a {
+            display: block;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 15px 10px;
+            font-size: 18px;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu {
+            display: block;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 101;
+            background: none;
+            border: none;
+            color: var(--dark);
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--dark);
+            cursor: pointer;
+            display: none;
+        }
+        
+        nav.active .close-menu {
+            display: block;
+        }
+        
+        /* Overlay for mobile menu */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 98;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--gh-green) 0%, var(--primary) 100%);
+            color: white;
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .payment-method {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        /* How It Works Section */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: var(--gh-green);
+        }
+        
+        /* Registration Section */
+        .registration {
+            background-color: white;
+        }
+        
+        .registration-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--light);
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            -webkit-appearance: none;
+        }
+        
+        select.form-control {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+            padding-right: 45px;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        
+        .payment-info {
+            background-color: #e0f2fe;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .cost {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gh-green);
+        }
+        
+        .terms {
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: var(--gray);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .terms input[type="checkbox"] {
+            margin-top: 3px;
+            transform: scale(1.2);
+        }
+        
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 18px 20px;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Language-specific styles */
+        .lang-nl, .lang-en {
+            display: none;
+        }
+        
+        .lang-nl.active, .lang-en.active {
+            display: block;
+        }
+        
+        /* Tablet Styles */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+                margin-bottom: 50px;
+            }
+            
+            .hero {
+                padding: 100px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .btn {
+                width: auto;
+            }
+            
+            .steps {
+                flex-direction: row;
+                gap: 30px;
+            }
+            
+            .form-row {
+                flex-direction: row;
+                gap: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+            }
+            
+            .mobile-menu {
+                display: none;
+            }
+            
+            nav {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+                overflow: visible;
+            }
+            
+            nav ul {
+                flex-direction: row;
+            }
+            
+            nav ul li {
+                margin-left: 25px;
+                border-bottom: none;
+            }
+            
+            nav ul li a {
+                padding: 5px 0;
+                font-size: 16px;
+            }
+            
+            .close-menu {
+                display: none !important;
+            }
+            
+            .overlay {
+                display: none;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 992px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .step {
+                padding: 40px 25px;
+            }
+            
+            .registration-form {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="nl">NL</button>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-briefcase"></i>
+                Job<span>markt</span>
+            </div>
+            <button class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <button class="close-menu">
+                    <i class="fas fa-times"></i>
+                </button>
+                <ul>
+                    <li><a href="#home" class="lang-en active">Home</a><a href="#home" class="lang-nl">Home</a></li>
+                    <li><a href="#hoe-het-werkt" class="lang-en">How It Works</a><a href="#hoe-het-werkt" class="lang-nl">Hoe het werkt</a></li>
+                    <li><a href="#registratie" class="lang-en">Registration</a><a href="#registratie" class="lang-nl">Registratie</a></li>
+                    <li><a href="#veelgestelde-vragen" class="lang-en">FAQ</a><a href="#veelgestelde-vragen" class="lang-nl">Veelgestelde vragen</a></li>
+                    <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-nl">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="lang-en active">Job Opportunities for <span style="color: var(--accent)">GHS 15</span> per month</h1>
+                <h1 class="lang-nl">Banenkansen voor <span style="color: var(--accent)">GHS 15</span> per maand</h1>
+                
+                <p class="lang-en active">Jobmarkt offers job seekers the chance to qualify for a job or basic income for one year. Try every month to increase your opportunities!</p>
+                <p class="lang-nl">Jobmarkt biedt werkzoekenden de mogelijkheid om in aanmerking te komen voor een baan of basisinkomen voor één jaar. Probeer elke maand opnieuw om je kansen te vergroten!</p>
+                
+                <div class="hero-buttons">
+                    <a href="#registratie" class="btn btn-accent lang-en active">Register Now</a>
+                    <a href="#registratie" class="btn btn-accent lang-nl">Nu Registreren</a>
+                    <a href="#hoe-het-werkt" class="btn lang-en active">Learn More</a>
+                    <a href="#hoe-het-werkt" class="btn lang-nl">Meer Informatie</a>
+                </div>
+                
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span class="lang-en active">Mobile Money</span>
+                        <span class="lang-nl">Mobiel Geld</span>
+                    </div>
+                    <div class="payment-method">
+                        <i class="fas fa-shield-alt"></i>
+                        <span class="lang-en active">Secure Payment</span>
+                        <span class="lang-nl">Veilige Betaling</span>
+                    </div>
+                    <div class="payment-method">
+                        <i class="fas fa-sync-alt"></i>
+                        <span class="lang-en active">Monthly Entry</span>
+                        <span class="lang-nl">Maandelijkse Inschrijving</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" id="hoe-het-werkt">
+        <div class="container">
+            <h2 class="section-title lang-en active">How Jobmarkt Works</h2>
+            <h2 class="section-title lang-nl">Hoe Jobmarkt Werkt</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3 class="lang-en active">Register & Pay</h3>
+                    <h3 class="lang-nl">Registreer & Betaal</h3>
+                    <p class="lang-en active">Sign up with your details and pay GHS 15 monthly via Mobile Money to participate.</p>
+                    <p class="lang-nl">Meld je aan met je gegevens en betaal GHS 15 per maand via Mobiel Geld om deel te nemen.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="lang-en active">Monthly Participation</h3>
+                    <h3 class="lang-nl">Maandelijkse Deelname</h3>
+                    <p class="lang-en active">Each month you're automatically entered for available jobs or a year of basic income.</p>
+                    <p class="lang-nl">Elke maand maak je automatisch kans op beschikbare banen of een jaar basisinkomen.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="lang-en active">Get Selected</h3>
+                    <h3 class="lang-nl">Word Geselecteerd</h3>
+                    <p class="lang-en active">With enough participants (minimum 5,000), winners are randomly selected for jobs or basic income.</p>
+                    <p class="lang-nl">Bij voldoende deelnemers (minimaal 5.000) worden winnaars willekeurig geselecteerd voor banen of basisinkomen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section class="section registration" id="registratie">
+        <div class="container">
+            <h2 class="section-title lang-en active">Register Today</h2>
+            <h2 class="section-title lang-nl">Registreer Vandaag</h2>
+            
+            <div class="registration-form">
+                <form id="registrationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="voornaam" class="lang-en active">First Name</label>
+                            <label for="voornaam" class="lang-nl">Voornaam</label>
+                            <input type="text" id="voornaam" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="achternaam" class="lang-en active">Last Name</label>
+                            <label for="achternaam" class="lang-nl">Achternaam</label>
+                            <input type="text" id="achternaam" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="lang-en active">Email Address</label>
+                        <label for="email" class="lang-nl">E-mailadres</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefoon" class="lang-en active">Phone Number</label>
+                        <label for="telefoon" class="lang-nl">Telefoonnummer</label>
+                        <input type="tel" id="telefoon" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="geboortedatum" class="lang-en active">Date of Birth</label>
+                        <label for="geboortedatum" class="lang-nl">Geboortedatum</label>
+                        <input type="date" id="geboortedatum" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location" class="lang-en active">Location in Ghana</label>
+                        <label for="location" class="lang-nl">Locatie in Ghana</label>
+                        <select id="location" class="form-control" required>
+                            <option value="">Select your region</option>
+                            <option value="accra">Greater Accra Region</option>
+                            <option value="ashanti">Ashanti Region</option>
+                            <option value="eastern">Eastern Region</option>
+                            <option value="central">Central Region</option>
+                            <option value="western">Western Region</option>
+                            <option value="volta">Volta Region</option>
+                            <option value="other">Other Region</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cv" class="lang-en active">Upload CV (PDF, max 5MB)</label>
+                        <label for="cv" class="lang-nl">Upload CV (PDF, max 5MB)</label>
+                        <input type="file" id="cv" class="form-control" accept=".pdf" required>
+                    </div>
+                    
+                    <div class="payment-info">
+                        <p class="lang-en active"><strong>Monthly contribution: <span class="cost">GHS 15</span></strong></p>
+                        <p class="lang-nl"><strong>Maandelijkse bijdrage: <span class="cost">GHS 15</span></strong></p>
+                        <p class="lang-en active">You will be automatically billed monthly until you unsubscribe.</p>
+                        <p class="lang-nl">Je wordt maandelijks automatisch gefactureerd totdat je je uitschrijft.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mobile-money" class="lang-en active">Mobile Money Provider</label>
+                        <label for="mobile-money" class="lang-nl">Mobiel Geld Provider</label>
+                        <select id="mobile-money" class="form-control" required>
+                            <option value="">Select your provider</option>
+                            <option value="mtn">MTN Mobile Money</option>
+                            <option value="vodafone">Vodafone Cash</option>
+                            <option value="airteltigo">AirtelTigo Money</option>
+                        </select>
+                    </div>
+                    
+                    <div class="terms">
+                        <input type="checkbox" id="voorwaarden" required>
+                        <label for="voorwaarden" class="lang-en active">I agree to the <a href="#">terms and conditions</a> and <a href="#">privacy policy</a></label>
+                        <label for="voorwaarden" class="lang-nl">Ik ga akkoord met de <a href="#">algemene voorwaarden</a> en het <a href="#">privacybeleid</a></label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-accent">
+                        <span class="lang-en active">Register & Pay with Mobile Money</span>
+                        <span class="lang-nl">Registreer & Betaal met Mobiel Geld</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" id="veelgestelde-vragen">
+        <div class="container">
+            <h2 class="section-title lang-en active">Frequently Asked Questions</h2>
+            <h2 class="section-title lang-nl">Veelgestelde Vragen</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="lang-en active">What are my chances of getting a job or basic income?</span>
+                        <span class="lang-nl">Hoe groot is mijn kans op een baan of basisinkomen?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="lang-en active">Your chance depends on the number of participants. With the minimum of 5,000 participants, your chance is 1 in 5,000 per month. The more participants, the more jobs and basic incomes we can offer.</p>
+                        <p class="lang-nl">Je kans is afhankelijk van het aantal deelnemers. Bij het minimum van 5.000 deelnemers is je kans 1 op 5.000 per maand. Hoe meer deelnemers, hoe meer banen en basisinkomens we kunnen aanbieden.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="lang-en active">What exactly does the basic income include?</span>
+                        <span class="lang-nl">Wat houdt het basisinkomen precies in?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="lang-en active">The basic income is a monthly payment of GHS 1,500-2,000 (depending on your experience and education) that you receive for 12 months, regardless of whether you find work during that period.</p>
+                        <p class="lang-nl">Het basisinkomen is een maandelijkse uitkering van GHS 1.500-2.000 (afhankelijk van je ervaring en opleiding) die je gedurende 12 maanden ontvangt, ongeacht of je in die periode werk vindt.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="lang-en active">Can I unsubscribe at any time?</span>
+                        <span class="lang-nl">Kan ik me op elk moment uitschrijven?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="lang-en active">Yes, you can unsubscribe at any time. The monthly payment will then stop at the end of the current billing period.</p>
+                        <p class="lang-nl">Ja, je kunt je op elk moment uitschrijven. De maandelijkse betaling stopt dan aan het einde van de huidige factureringsperiode.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="lang-en active">How are winners selected?</span>
+                        <span class="lang-nl">Hoe worden winnaars geselecteerd?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="lang-en active">We use a transparent, random selection system that is verified by an independent party. All participants have equal chances.</p>
+                        <p class="lang-nl">We gebruiken een transparant, willekeurig selectiesysteem dat wordt gecontroleerd door een onafhankelijke partij. Alle deelnemers hebben gelijke kansen.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="lang-en active">What happens if there are fewer than 5,000 participants?</span>
+                        <span class="lang-nl">Wat gebeurt er als er minder dan 5.000 deelnemers zijn?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="lang-en active">With fewer than 5,000 participants, the monthly draw is postponed until the minimum number of participants is reached. You only pay when the draw takes place.</p>
+                        <p class="lang-nl">Bij minder dan 5.000 deelnemers wordt de maandelijkse trekking uitgesteld totdat het minimum aantal deelnemers is bereikt. Je betaalt pas wanneer de trekking plaatsvindt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Jobmarkt</h3>
+                    <p class="lang-en active">The innovative employment platform that offers job seekers monthly chances for a job or basic income.</p>
+                    <p class="lang-nl">Het innovatieve banenplatform dat werkzoekenden maandelijks kans biedt op een baan of basisinkomen.</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="lang-en active">Quick Links</h3>
+                    <h3 class="lang-nl">Snelle Links</h3>
+                    <ul>
+                        <li><a href="#home" class="lang-en active">Home</a><a href="#home" class="lang-nl">Home</a></li>
+                        <li><a href="#hoe-het-werkt" class="lang-en active">How It Works</a><a href="#hoe-het-werkt" class="lang-nl">Hoe het werkt</a></li>
+                        <li><a href="#registratie" class="lang-en active">Registration</a><a href="#registratie" class="lang-nl">Registratie</a></li>
+                        <li><a href="#veelgestelde-vragen" class="lang-en active">FAQ</a><a href="#veelgestelde-vragen" class="lang-nl">Veelgestelde vragen</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="lang-en active">Legal</h3>
+                    <h3 class="lang-nl">Juridisch</h3>
+                    <ul>
+                        <li><a href="#" class="lang-en active">Terms & Conditions</a><a href="#" class="lang-nl">Algemene voorwaarden</a></li>
+                        <li><a href="#" class="lang-en active">Privacy Policy</a><a href="#" class="lang-nl">Privacybeleid</a></li>
+                        <li><a href="#" class="lang-en active">Cookie Policy</a><a href="#" class="lang-nl">Cookiebeleid</a></li>
+                        <li><a href="#" class="lang-en active">Disclaimer</a><a href="#" class="lang-nl">Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="lang-en active">Contact</h3>
+                    <h3 class="lang-nl">Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@jobmarkt.com.gh</li>
+                        <li><i class="fas fa-phone"></i> +233 123 456 789</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Accra, Ghana</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p class="lang-en active">&copy; 2023 Jobmarkt Ghana. All rights reserved.</p>
+                <p class="lang-nl">&copy; 2023 Jobmarkt Ghana. Alle rechten voorbehouden.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Language Toggle Functionality
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show selected language content
+                const lang = this.getAttribute('data-lang');
+                document.querySelectorAll('.lang-en, .lang-nl').forEach(element => {
+                    element.classList.remove('active');
+                });
+                document.querySelectorAll(`.lang-${lang}`).forEach(element => {
+                    element.classList.add('active');
+                });
+            });
+        });
+        
+        // FAQ Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentNode;
+                item.classList.toggle('active');
+                
+                // Change + to - and vice versa
+                const icon = question.querySelector('span:last-child');
+                icon.textContent = item.classList.contains('active') ? '−' : '+';
+            });
+        });
+        
+        // Form Submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get current language
+            const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+            
+            if (currentLang === 'en') {
+                alert('Thank you for your registration! You will now be redirected to the Mobile Money payment page.');
+            } else {
+                alert('Bedankt voor je registratie! Je wordt nu doorgestuurd naar de Mobiel Geld betalingspagina.');
+            }
+            
+            // In a real implementation, Mobile Money payment integration would go here
+        });
+        
+        // Mobile Menu Functionality
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav');
+        const overlay = document.querySelector('.overlay');
+        const closeMenu = document.querySelector('.close-menu');
+        
+        mobileMenu.addEventListener('click', function() {
+            nav.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', function() {
+            nav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        overlay.addEventListener('click', function() {
+            nav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                nav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Improve touch experience on mobile
+        document.addEventListener('touchstart', function() {}, {passive: true});
+    </script>
+</body>
+</html>

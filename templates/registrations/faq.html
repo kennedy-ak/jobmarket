@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}FAQ - Jobmarkt{% endblock %}
+
+{% block content %}
+<!-- FAQ Section -->
+<section class="section" id="veelgestelde-vragen">
+    <div class="container">
+        <h2 class="section-title lang-en {% if language == 'en' %}active{% endif %}">Frequently Asked Questions</h2>
+        <h2 class="section-title lang-nl {% if language == 'nl' %}active{% endif %}">Veelgestelde Vragen</h2>
+        
+        <div class="faq-list">
+            {% for faq in faqs %}
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">{{ faq.question_en }}</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">{{ faq.question_nl }}</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="lang-en {% if language == 'en' %}active{% endif %}">{{ faq.answer_en }}</p>
+                        <p class="lang-nl {% if language == 'nl' %}active{% endif %}">{{ faq.answer_nl }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 50px; padding: 30px; background-color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);">
+            <h3 class="lang-en {% if language == 'en' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 15px;">
+                Still have questions?
+            </h3>
+            <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 15px;">
+                Nog vragen?
+            </h3>
+            
+            <p class="lang-en {% if language == 'en' %}active{% endif %}" style="margin-bottom: 20px; color: var(--gray);">
+                Contact our support team and we'll be happy to help you.
+            </p>
+            <p class="lang-nl {% if language == 'nl' %}active{% endif %}" style="margin-bottom: 20px; color: var(--gray);">
+                Neem contact op met ons supportteam en we helpen je graag verder.
+            </p>
+            
+            <a href="mailto:info@jobmarkt.com.gh" class="btn btn-secondary">
+                <i class="fas fa-envelope" style="margin-right: 8px;"></i>
+                <span class="lang-en {% if language == 'en' %}active{% endif %}">Contact Support</span>
+                <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Contact Support</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

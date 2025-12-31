@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registration Successful - Jobmarkt{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 40px 20px;">
+            <div style="background-color: #d1e7dd; border: 1px solid #badbcc; border-radius: 10px; padding: 30px; margin-bottom: 30px;">
+                <i class="fas fa-check-circle" style="font-size: 4rem; color: #198754; margin-bottom: 20px;"></i>
+                
+                <h2 class="lang-en {% if language == 'en' %}active{% endif %}" style="color: #0f5132; margin-bottom: 20px;">
+                    Registration Successful!
+                </h2>
+                <h2 class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: #0f5132; margin-bottom: 20px;">
+                    Registratie Succesvol!
+                </h2>
+                
+                <p class="lang-en {% if language == 'en' %}active{% endif %}" style="color: #0f5132; font-size: 1.1rem; line-height: 1.5;">
+                    Thank you for registering with Jobmarkt! You will receive a confirmation email shortly with payment instructions for your GHS 15 monthly contribution via Mobile Money.
+                </p>
+                <p class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: #0f5132; font-size: 1.1rem; line-height: 1.5;">
+                    Bedankt voor je registratie bij Jobmarkt! Je ontvangt binnenkort een bevestigingsmail met betalingsinstructies voor je maandelijkse bijdrage van GHS 15 via Mobiel Geld.
+                </p>
+            </div>
+            
+            <div style="background-color: #e0f2fe; border: 1px solid #0dcaf0; border-radius: 10px; padding: 25px; margin-bottom: 30px;">
+                <h3 class="lang-en {% if language == 'en' %}active{% endif %}" style="color: #055160; margin-bottom: 15px;">
+                    What Happens Next?
+                </h3>
+                <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: #055160; margin-bottom: 15px;">
+                    Wat Gebeurt Er Nu?
+                </h3>
+                
+                <div style="text-align: left; margin-top: 20px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="background-color: #0dcaf0; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">1</span>
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}" style="color: #055160;">
+                            Check your email for payment instructions
+                        </span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: #055160;">
+                            Controleer je email voor betalingsinstructies
+                        </span>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="background-color: #0dcaf0; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">2</span>
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}" style="color: #055160;">
+                            Make your GHS 15 payment via Mobile Money
+                        </span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: #055160;">
+                            Doe je betaling van GHS 15 via Mobiel Geld
+                        </span>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center;">
+                        <span style="background-color: #0dcaf0; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">3</span>
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}" style="color: #055160;">
+                            Wait for the monthly draw announcement
+                        </span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: #055160;">
+                            Wacht op de aankondiging van de maandelijkse trekking
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                <a href="/user/register/" class="btn" style="font-size: 1.1rem; padding: 16px 32px;">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="lang-en {% if language == 'en' %}active{% endif %}">Create Account & Access Dashboard</span>
+                    <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Account Aanmaken & Dashboard Toegang</span>
+                </a>
+                
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                    <a href="/user/login/" class="btn btn-secondary">
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">Login to Existing Account</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Inloggen bij Bestaand Account</span>
+                    </a>
+                    
+                    <a href="/" class="btn btn-secondary">
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">Return to Home</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Terug naar Home</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

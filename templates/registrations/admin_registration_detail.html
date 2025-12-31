@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - Jobmarkt Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --secondary: #28a745;
+            --accent: #ffc107;
+            --dark: #1a1a1a;
+            --gray: #6c757d;
+            --light: #f8f9fa;
+            --border: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .admin-header {
+            background-color: var(--dark);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .admin-nav {
+            background-color: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 15px 0;
+            color: var(--gray);
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .admin-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0b5ed7;
+        }
+
+        .btn-secondary {
+            background-color: var(--gray);
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        .profile-sidebar {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .profile-name {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .profile-email {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-success {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .badge-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .status-badge {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quick-actions {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .quick-actions button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .detail-content {
+            display: grid;
+            gap: 20px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .cv-preview {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cv-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cv-icon {
+            font-size: 3rem;
+            color: #dc3545;
+        }
+
+        @media (max-width: 968px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i> Jobmarkt Admin
+            </div>
+            <div class="user-info">
+                <span>{{ user.username }}</span>
+                <a href="/user/logout/" style="color: white; text-decoration: none;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Navigation -->
+    <nav class="admin-nav">
+        <div class="nav-container">
+            <a href="/admin-dashboard/" class="nav-link">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="/admin-registrations/" class="nav-link active">
+                <i class="fas fa-users"></i> Registrations
+            </a>
+            <a href="/admin-monthly-draws/" class="nav-link">
+                <i class="fas fa-calendar-alt"></i> Monthly Draws
+            </a>
+            <a href="/admin-winners/" class="nav-link">
+                <i class="fas fa-trophy"></i> Winners
+            </a>
+            <a href="/admin-jobs/" class="nav-link">
+                <i class="fas fa-briefcase"></i> Jobs
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-user-circle"></i> Registration Details
+            </h1>
+            <a href="/admin-registrations/" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="detail-grid">
+            <!-- Profile Sidebar -->
+            <aside class="profile-sidebar">
+                <div class="profile-avatar">
+                    {{ registration.first_name.0|upper }}{{ registration.last_name.0|upper }}
+                </div>
+                <h2 class="profile-name">{{ registration.full_name }}</h2>
+                <p class="profile-email">{{ registration.email }}</p>
+
+                <div class="status-badge">
+                    {% if registration.is_active %}
+                        <span class="badge badge-success">
+                            <i class="fas fa-check-circle"></i> Active
+                        </span>
+                    {% else %}
+                        <span class="badge badge-danger">
+                            <i class="fas fa-times-circle"></i> Inactive
+                        </span>
+                    {% endif %}
+                </div>
+
+                <div style="background: var(--light); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="color: var(--gray);">ID:</span>
+                        <strong>#{{ registration.id }}</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--gray);">Registered:</span>
+                        <strong>{{ registration.registration_date|date:"M d, Y" }}</strong>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h3 style="font-size: 1rem; margin-bottom: 15px; color: var(--dark);">Quick Actions</h3>
+                    {% if registration.is_active %}
+                        <button class="btn btn-secondary" onclick="confirm('Deactivate this registration?') && alert('Deactivate feature coming soon!')">
+                            <i class="fas fa-pause-circle"></i> Deactivate
+                        </button>
+                    {% else %}
+                        <button class="btn" onclick="confirm('Activate this registration?') && alert('Activate feature coming soon!')">
+                            <i class="fas fa-play-circle"></i> Activate
+                        </button>
+                    {% endif %}
+                    <button class="btn" style="background-color: var(--secondary);" onclick="alert('Email feature coming soon!')">
+                        <i class="fas fa-envelope"></i> Send Email
+                    </button>
+                    <button class="btn" style="background-color: #dc3545;" onclick="confirm('Delete this registration? This cannot be undone!') && alert('Delete feature coming soon!')">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Detail Content -->
+            <div class="detail-content">
+                <!-- Personal Information -->
+                <div class="info-card">
+                    <h3 class="section-title">
+                        <i class="fas fa-user"></i>
+                        Personal Information
+                    </h3>
+
+                    <div class="info-row">
+                        <span class="info-label">First Name:</span>
+                        <span class="info-value">{{ registration.first_name }}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Last Name:</span>
+                        <span class="info-value">{{ registration.last_name }}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Email Address:</span>
+                        <span class="info-value">
+                            <a href="mailto:{{ registration.email }}" style="color: var(--primary); text-decoration: none;">
+                                {{ registration.email }}
+                            </a>
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Phone Number:</span>
+                        <span class="info-value">{{ registration.phone_number }}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Date of Birth:</span>
+                        <span class="info-value">{{ registration.date_of_birth|date:"F d, Y" }}</span>
+                    </div>
+                </div>
+
+                <!-- Location & Payment -->
+                <div class="info-card">
+                    <h3 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Location & Payment
+                    </h3>
+
+                    <div class="info-row">
+                        <span class="info-label">Region:</span>
+                        <span class="info-value">{{ registration.get_region_display }}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Mobile Money Provider:</span>
+                        <span class="info-value">{{ registration.get_mobile_money_provider_display }}</span>
+                    </div>
+                </div>
+
+                <!-- CV Upload -->
+                <div class="info-card">
+                    <h3 class="section-title">
+                        <i class="fas fa-file-pdf"></i>
+                        CV Document
+                    </h3>
+
+                    {% if registration.cv_file %}
+                        <div class="cv-preview">
+                            <div class="cv-info">
+                                <i class="fas fa-file-pdf cv-icon"></i>
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 5px;">
+                                        {{ registration.cv_file.name|slice:"9:" }}
+                                    </div>
+                                    <div style="color: var(--gray); font-size: 0.9rem;">
+                                        Uploaded: {{ registration.registration_date|date:"M d, Y" }}
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{{ registration.cv_file.url }}" target="_blank" class="btn">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </div>
+                    {% else %}
+                        <p style="color: var(--gray); text-align: center; padding: 20px;">
+                            No CV uploaded
+                        </p>
+                    {% endif %}
+                </div>
+
+                <!-- System Information -->
+                <div class="info-card">
+                    <h3 class="section-title">
+                        <i class="fas fa-cog"></i>
+                        System Information
+                    </h3>
+
+                    <div class="info-row">
+                        <span class="info-label">Registration ID:</span>
+                        <span class="info-value">#{{ registration.id }}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Registration Date:</span>
+                        <span class="info-value">{{ registration.registration_date|date:"F d, Y H:i:s" }}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Language Preference:</span>
+                        <span class="info-value">
+                            {% if registration.language == 'en' %}English{% else %}Dutch{% endif %}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Account Status:</span>
+                        <span class="info-value">
+                            {% if registration.is_active %}
+                                <span style="color: var(--secondary);">
+                                    <i class="fas fa-check-circle"></i> Active
+                                </span>
+                            {% else %}
+                                <span style="color: #dc3545;">
+                                    <i class="fas fa-times-circle"></i> Inactive
+                                </span>
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Terms Accepted:</span>
+                        <span class="info-value">
+                            {% if registration.terms_accepted %}
+                                <span style="color: var(--secondary);">
+                                    <i class="fas fa-check-circle"></i> Yes
+                                </span>
+                            {% else %}
+                                <span style="color: #dc3545;">
+                                    <i class="fas fa-times-circle"></i> No
+                                </span>
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    {% if registration.user %}
+                        <div class="info-row">
+                            <span class="info-label">Linked User Account:</span>
+                            <span class="info-value">{{ registration.user.username }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

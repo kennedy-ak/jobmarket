@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register - Jobmarkt{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-errors {
+        background-color: #f8d7da;
+        border: 1px solid #f5c2c7;
+        color: #842029;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .form-errors ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+    
+    .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    
+    .field-error {
+        border-color: #dc3545 !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Registration Form -->
+<section class="section registration" id="registratie">
+    <div class="container">
+        <h2 class="section-title lang-en {% if language == 'en' %}active{% endif %}">Register Today</h2>
+        <h2 class="section-title lang-nl {% if language == 'nl' %}active{% endif %}">Registreer Vandaag</h2>
+        
+        <div class="registration-form">
+            {% if form.errors %}
+                <div class="form-errors">
+                    <strong>
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">Please correct the errors below:</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Corrigeer de onderstaande fouten:</span>
+                    </strong>
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <form id="registrationForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <div class="error-message">{{ form.first_name.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <div class="error-message">{{ form.last_name.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="error-message">{{ form.email.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.phone_number.label_tag }}
+                    {{ form.phone_number }}
+                    {% if form.phone_number.errors %}
+                        <div class="error-message">{{ form.phone_number.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.date_of_birth.label_tag }}
+                    {{ form.date_of_birth }}
+                    {% if form.date_of_birth.errors %}
+                        <div class="error-message">{{ form.date_of_birth.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.region.label_tag }}
+                    {{ form.region }}
+                    {% if form.region.errors %}
+                        <div class="error-message">{{ form.region.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.cv_file.label_tag }}
+                    {{ form.cv_file }}
+                    {% if form.cv_file.errors %}
+                        <div class="error-message">{{ form.cv_file.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="payment-info">
+                    <p class="lang-en {% if language == 'en' %}active{% endif %}"><strong>Monthly contribution: <span class="cost">GHS 15</span></strong></p>
+                    <p class="lang-nl {% if language == 'nl' %}active{% endif %}"><strong>Maandelijkse bijdrage: <span class="cost">GHS 15</span></strong></p>
+                    <p class="lang-en {% if language == 'en' %}active{% endif %}">You will be automatically billed monthly until you unsubscribe.</p>
+                    <p class="lang-nl {% if language == 'nl' %}active{% endif %}">Je wordt maandelijks automatisch gefactureerd totdat je je uitschrijft.</p>
+                </div>
+                
+                <div class="form-group">
+                    {{ form.mobile_money_provider.label_tag }}
+                    {{ form.mobile_money_provider }}
+                    {% if form.mobile_money_provider.errors %}
+                        <div class="error-message">{{ form.mobile_money_provider.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="terms">
+                    {{ form.confirm_terms }}
+                    <label for="id_confirm_terms" class="lang-en {% if language == 'en' %}active{% endif %}">
+                        I agree to the <a href="#">terms and conditions</a> and <a href="#">privacy policy</a>
+                    </label>
+                    <label for="id_confirm_terms" class="lang-nl {% if language == 'nl' %}active{% endif %}">
+                        Ik ga akkoord met de <a href="#">algemene voorwaarden</a> en het <a href="#">privacybeleid</a>
+                    </label>
+                    {% if form.confirm_terms.errors %}
+                        <div class="error-message">{{ form.confirm_terms.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="btn btn-accent">
+                    <span class="lang-en {% if language == 'en' %}active{% endif %}">Register & Pay with Mobile Money</span>
+                    <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Registreer & Betaal met Mobiel Geld</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add field validation styling
+        const form = document.getElementById('registrationForm');
+        const inputs = form.querySelectorAll('input, select');
+        
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            input.addEventListener('input', function() {
+                if (this.classList.contains('field-error')) {
+                    validateField(this);
+                }
+            });
+        });
+        
+        function validateField(field) {
+            const errorDiv = field.parentNode.querySelector('.error-message');
+            
+            if (field.checkValidity()) {
+                field.classList.remove('field-error');
+                if (errorDiv) {
+                    errorDiv.remove();
+                }
+            } else {
+                field.classList.add('field-error');
+                
+                if (!errorDiv && field.validationMessage) {
+                    const newErrorDiv = document.createElement('div');
+                    newErrorDiv.className = 'error-message';
+                    newErrorDiv.textContent = field.validationMessage;
+                    field.parentNode.appendChild(newErrorDiv);
+                }
+            }
+        }
+        
+        // File upload validation
+        const cvInput = document.getElementById('id_cv_file');
+        if (cvInput) {
+            cvInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    // Check file size (5MB max)
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('File size should not exceed 5MB.');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    // Check file type
+                    if (!file.name.toLowerCase().endsWith('.pdf')) {
+                        alert('Only PDF files are allowed.');
+                        this.value = '';
+                        return;
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

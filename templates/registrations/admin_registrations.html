@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - Jobmarkt Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+        
+        .admin-header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fcd116;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .admin-nav {
+            background-color: white;
+            border-bottom: 1px solid #dee2e6;
+            padding: 0 20px;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 15px 0;
+            color: #6c757d;
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #0d6efd;
+            border-bottom-color: #0d6efd;
+        }
+        
+        .admin-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+        }
+        
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .filter-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #6c757d;
+        }
+        
+        .filter-input {
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #0d6efd;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #0b5ed7;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .registrations-table {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th {
+            background-color: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #1a1a1a;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+        
+        .table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .badge-primary {
+            background-color: #0d6efd;
+            color: white;
+        }
+        
+        .badge-success {
+            background-color: #198754;
+            color: white;
+        }
+        
+        .badge-warning {
+            background-color: #ffc107;
+            color: #1a1a1a;
+        }
+        
+        .status-active {
+            color: #198754;
+        }
+        
+        .status-inactive {
+            color: #dc3545;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 0.8rem;
+        }
+        
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .pagination-info {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-briefcase"></i>
+                Job<span style="color: #ce1126;">markt</span> Admin
+            </div>
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span>{{ request.user.username }}</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Admin Navigation -->
+    <nav class="admin-nav">
+        <div class="nav-container">
+            <a href="/admin-dashboard/" class="nav-link">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="/admin-registrations/" class="nav-link active">
+                <i class="fas fa-users"></i> Registrations
+            </a>
+            <a href="/admin-monthly-draws/" class="nav-link">
+                <i class="fas fa-calendar-alt"></i> Monthly Draws
+            </a>
+            <a href="/admin-winners/" class="nav-link">
+                <i class="fas fa-trophy"></i> Winners
+            </a>
+            <a href="/admin-jobs/" class="nav-link">
+                <i class="fas fa-briefcase"></i> Jobs
+            </a>
+            <a href="/admin/" class="nav-link">
+                <i class="fas fa-cog"></i> Django Admin
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="admin-main">
+        <h1 class="page-title">{{ page_title }}</h1>
+        
+        <!-- Filters -->
+        <div class="filters">
+            <form method="GET" style="display: flex; gap: 15px; align-items: end; flex-wrap: wrap; width: 100%;">
+                <div class="filter-group">
+                    <label class="filter-label">Search</label>
+                    <input type="text" name="search" value="{{ search_query }}" placeholder="Search name or email..." class="filter-input" style="min-width: 200px;">
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Region</label>
+                    <select name="region" class="filter-input">
+                        <option value="">All Regions</option>
+                        <option value="accra" {% if region_filter == 'accra' %}selected{% endif %}>Greater Accra Region</option>
+                        <option value="ashanti" {% if region_filter == 'ashanti' %}selected{% endif %}>Ashanti Region</option>
+                        <option value="eastern" {% if region_filter == 'eastern' %}selected{% endif %}>Eastern Region</option>
+                        <option value="central" {% if region_filter == 'central' %}selected{% endif %}>Central Region</option>
+                        <option value="western" {% if region_filter == 'western' %}selected{% endif %}>Western Region</option>
+                        <option value="volta" {% if region_filter == 'volta' %}selected{% endif %}>Volta Region</option>
+                        <option value="other" {% if region_filter == 'other' %}selected{% endif %}>Other Region</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Provider</label>
+                    <select name="provider" class="filter-input">
+                        <option value="">All Providers</option>
+                        <option value="mtn" {% if provider_filter == 'mtn' %}selected{% endif %}>MTN Mobile Money</option>
+                        <option value="vodafone" {% if provider_filter == 'vodafone' %}selected{% endif %}>Vodafone Cash</option>
+                        <option value="airteltigo" {% if provider_filter == 'airteltigo' %}selected{% endif %}>AirtelTigo Money</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <button type="submit" class="btn">Filter</button>
+                </div>
+                
+                <div class="filter-group">
+                    <a href="/admin-registrations/" class="btn btn-secondary">Clear Filters</a>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Registrations Table -->
+        <div class="registrations-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Region</th>
+                        <th>Provider</th>
+                        <th>Registration Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for registration in registrations %}
+                    <tr>
+                        <td>{{ registration.id }}</td>
+                        <td>
+                            <strong>{{ registration.full_name }}</strong><br>
+                            <small style="color: #6c757d;">{{ registration.date_of_birth|date:"M d, Y" }}</small>
+                        </td>
+                        <td>{{ registration.email }}</td>
+                        <td>{{ registration.phone_number }}</td>
+                        <td>
+                            <span class="badge badge-warning">{{ registration.get_region_display }}</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-primary">{{ registration.get_mobile_money_provider_display }}</span>
+                        </td>
+                        <td>{{ registration.registration_date|date:"M d, Y H:i" }}</td>
+                        <td>
+                            {% if registration.is_active %}
+                                <span class="status-active">
+                                    <i class="fas fa-check-circle"></i> Active
+                                </span>
+                            {% else %}
+                                <span class="status-inactive">
+                                    <i class="fas fa-times-circle"></i> Inactive
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <a href="/admin-registration/{{ registration.id }}/" class="btn btn-sm">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <a href="{{ registration.cv_file.url }}" class="btn btn-sm" target="_blank">
+                                    <i class="fas fa-file-pdf"></i> CV
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    
+                    {% if not registrations %}
+                    <tr>
+                        <td colspan="9" style="text-align: center; padding: 40px; color: #6c757d;">
+                            <i class="fas fa-users" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                            No registrations found matching your criteria.
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Summary Stats -->
+        <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3 style="margin-bottom: 15px; color: #1a1a1a;">Summary</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div>
+                    <strong>Total Results:</strong> {{ registrations|length }}
+                </div>
+                <div>
+                    <strong>Active Users:</strong> {{ registrations|length }} (filtered)
+                </div>
+                <div>
+                    <strong>CVs Uploaded:</strong> 100%
+                </div>
+                <div>
+                    <strong>Terms Accepted:</strong> 100%
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

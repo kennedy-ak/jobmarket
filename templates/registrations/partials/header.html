@@ -1,0 +1,28 @@
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <i class="fas fa-briefcase"></i>
+            Job<span>markt</span>
+        </div>
+        <button class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <button class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <ul>
+                <li><a href="/" class="lang-en {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                    <a href="/" class="lang-nl {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+                <li><a href="/how-it-works/" class="lang-en {% if request.resolver_match.url_name == 'how_it_works' %}active{% endif %}">How It Works</a>
+                    <a href="/how-it-works/" class="lang-nl {% if request.resolver_match.url_name == 'how_it_works' %}active{% endif %}">Hoe het werkt</a></li>
+                <li><a href="/registration/" class="lang-en {% if request.resolver_match.url_name == 'registration' %}active{% endif %}">Registration</a>
+                    <a href="/registration/" class="lang-nl {% if request.resolver_match.url_name == 'registration' %}active{% endif %}">Registratie</a></li>
+                <li><a href="/faq/" class="lang-en {% if request.resolver_match.url_name == 'faq' %}active{% endif %}">FAQ</a>
+                    <a href="/faq/" class="lang-nl {% if request.resolver_match.url_name == 'faq' %}active{% endif %}">Veelgestelde vragen</a></li>
+                <li><a href="#contact" class="lang-en">Contact</a>
+                    <a href="#contact" class="lang-nl">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>

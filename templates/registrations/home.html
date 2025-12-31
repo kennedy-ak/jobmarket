@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Jobmarkt - Employment Platform for Ghanaian Job Seekers{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="lang-en {% if language == 'en' %}active{% endif %}">Job Opportunities for <span style="color: var(--accent)">GHS 15</span> per month</h1>
+            <h1 class="lang-nl {% if language == 'nl' %}active{% endif %}">Banenkansen voor <span style="color: var(--accent)">GHS 15</span> per maand</h1>
+            
+            <p class="lang-en {% if language == 'en' %}active{% endif %}">Jobmarkt offers job seekers the chance to qualify for a job or basic income for one year. Try every month to increase your opportunities!</p>
+            <p class="lang-nl {% if language == 'nl' %}active{% endif %}">Jobmarkt biedt werkzoekenden de mogelijkheid om in aanmerking te komen voor een baan of basisinkomen voor één jaar. Probeer elke maand opnieuw om je kansen te vergroten!</p>
+            
+            <div class="hero-buttons">
+                <a href="/registration/" class="btn btn-accent lang-en {% if language == 'en' %}active{% endif %}">Register Now</a>
+                <a href="/registration/" class="btn btn-accent lang-nl {% if language == 'nl' %}active{% endif %}">Nu Registreren</a>
+                <a href="/how-it-works/" class="btn lang-en {% if language == 'en' %}active{% endif %}">Learn More</a>
+                <a href="/how-it-works/" class="btn lang-nl {% if language == 'nl' %}active{% endif %}">Meer Informatie</a>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span class="lang-en {% if language == 'en' %}active{% endif %}">Mobile Money</span>
+                    <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Mobiel Geld</span>
+                </div>
+                <div class="payment-method">
+                    <i class="fas fa-shield-alt"></i>
+                    <span class="lang-en {% if language == 'en' %}active{% endif %}">Secure Payment</span>
+                    <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Veilige Betaling</span>
+                </div>
+                <div class="payment-method">
+                    <i class="fas fa-sync-alt"></i>
+                    <span class="lang-en {% if language == 'en' %}active{% endif %}">Monthly Entry</span>
+                    <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Maandelijkse Inschrijving</span>
+                </div>
+            </div>
+            
+            <!-- Current participants counter -->
+            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                <p style="font-size: 1.1rem; margin: 0;">
+                    <strong>Current Participants: {{ total_participants }}</strong>
+                </p>
+                {% if monthly_draw.status == 'pending' %}
+                    <p style="font-size: 0.9rem; margin: 5px 0 0 0; opacity: 0.9;">
+                        Need {{ needed_participants }} more for next draw
+                    </p>
+                {% else %}
+                    <p style="font-size: 0.9rem; margin: 5px 0 0 0; opacity: 0.9;">
+                        Draw is active! Next selection soon.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Preview -->
+<section class="section" id="hoe-het-werkt">
+    <div class="container">
+        <h2 class="section-title lang-en {% if language == 'en' %}active{% endif %}">How Jobmarkt Works</h2>
+        <h2 class="section-title lang-nl {% if language == 'nl' %}active{% endif %}">Hoe Jobmarkt Werkt</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3 class="lang-en {% if language == 'en' %}active{% endif %}">Register & Pay</h3>
+                <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}">Registreer & Betaal</h3>
+                <p class="lang-en {% if language == 'en' %}active{% endif %}">Sign up with your details and pay GHS 15 monthly via Mobile Money to participate.</p>
+                <p class="lang-nl {% if language == 'nl' %}active{% endif %}">Meld je aan met je gegevens en betaal GHS 15 per maand via Mobiel Geld om deel te nemen.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3 class="lang-en {% if language == 'en' %}active{% endif %}">Monthly Participation</h3>
+                <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}">Maandelijkse Deelname</h3>
+                <p class="lang-en {% if language == 'en' %}active{% endif %}">Each month you're automatically entered for available jobs or a year of basic income.</p>
+                <p class="lang-nl {% if language == 'nl' %}active{% endif %}">Elke maand maak je automatisch kans op beschikbare banen of een jaar basisinkomen.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3 class="lang-en {% if language == 'en' %}active{% endif %}">Get Selected</h3>
+                <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}">Word Geselecteerd</h3>
+                <p class="lang-en {% if language == 'en' %}active{% endif %}">With enough participants (minimum 5,000), winners are randomly selected for jobs or basic income.</p>
+                <p class="lang-nl {% if language == 'nl' %}active{% endif %}">Bij voldoende deelnemers (minimaal 5.000) worden winnaars willekeurig geselecteerd voor banen of basisinkomen.</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/how-it-works/" class="btn btn-secondary">
+                <span class="lang-en {% if language == 'en' %}active{% endif %}">Learn More About How It Works</span>
+                <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Meer Informatie Over Hoe Het Werkt</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

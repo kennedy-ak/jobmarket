@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}How It Works - Jobmarkt{% endblock %}
+
+{% block content %}
+<!-- How It Works Section -->
+<section class="section" id="hoe-het-werkt">
+    <div class="container">
+        <h2 class="section-title lang-en {% if language == 'en' %}active{% endif %}">How Jobmarkt Works</h2>
+        <h2 class="section-title lang-nl {% if language == 'nl' %}active{% endif %}">Hoe Jobmarkt Werkt</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3 class="lang-en {% if language == 'en' %}active{% endif %}">Register & Pay</h3>
+                <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}">Registreer & Betaal</h3>
+                <p class="lang-en {% if language == 'en' %}active{% endif %}">Sign up with your details and pay GHS 15 monthly via Mobile Money to participate.</p>
+                <p class="lang-nl {% if language == 'nl' %}active{% endif %}">Meld je aan met je gegevens en betaal GHS 15 per maand via Mobiel Geld om deel te nemen.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3 class="lang-en {% if language == 'en' %}active{% endif %}">Monthly Participation</h3>
+                <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}">Maandelijkse Deelname</h3>
+                <p class="lang-en {% if language == 'en' %}active{% endif %}">Each month you're automatically entered for available jobs or a year of basic income.</p>
+                <p class="lang-nl {% if language == 'nl' %}active{% endif %}">Elke maand maak je automatisch kans op beschikbare banen of een jaar basisinkomen.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3 class="lang-en {% if language == 'en' %}active{% endif %}">Get Selected</h3>
+                <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}">Word Geselecteerd</h3>
+                <p class="lang-en {% if language == 'en' %}active{% endif %}">With enough participants (minimum 5,000), winners are randomly selected for jobs or basic income.</p>
+                <p class="lang-nl {% if language == 'nl' %}active{% endif %}">Bij voldoende deelnemers (minimaal 5.000) worden winnaars willekeurig geselecteerd voor banen of basisinkomen.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed Process Section -->
+<section class="section" style="background-color: white;">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 class="section-title lang-en {% if language == 'en' %}active{% endif %}">Detailed Process</h2>
+            <h2 class="section-title lang-nl {% if language == 'nl' %}active{% endif %}">Gedetailleerd Proces</h2>
+            
+            <div style="display: flex; flex-direction: column; gap: 40px;">
+                <!-- Step 1 -->
+                <div style="display: flex; align-items: flex-start; gap: 20px; padding: 30px; background-color: var(--light); border-radius: 10px;">
+                    <div style="background-color: var(--primary); color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; flex-shrink: 0;">1</div>
+                    <div>
+                        <h3 class="lang-en {% if language == 'en' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 15px;">Registration Process</h3>
+                        <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 15px;">Registratieproces</h3>
+                        <p class="lang-en {% if language == 'en' %}active{% endif %}" style="line-height: 1.6;">
+                            Complete our registration form with your personal details, upload your CV, and select your Mobile Money provider. Our system validates all information to ensure fairness and transparency.
+                        </p>
+                        <p class="lang-nl {% if language == 'nl' %}active{% endif %}" style="line-height: 1.6;">
+                            Vul ons registratieformulier in met je persoonlijke gegevens, upload je CV en selecteer je Mobiel Geld provider. Ons systeem valideert alle informatie om eerlijkheid en transparantie te garanderen.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div style="display: flex; align-items: flex-start; gap: 20px; padding: 30px; background-color: var(--light); border-radius: 10px;">
+                    <div style="background-color: var(--secondary); color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; flex-shrink: 0;">2</div>
+                    <div>
+                        <h3 class="lang-en {% if language == 'en' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 15px;">Monthly Payment</h3>
+                        <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 15px;">Maandelijkse Betaling</h3>
+                        <p class="lang-en {% if language == 'en' %}active{% endif %}" style="line-height: 1.6;">
+                            Pay your GHS 15 monthly contribution via your chosen Mobile Money provider. Payments are processed securely and you receive confirmation via email and SMS.
+                        </p>
+                        <p class="lang-nl {% if language == 'nl' %}active{% endif %}" style="line-height: 1.6;">
+                            Betaal je maandelijkse bijdrage van GHS 15 via je gekozen Mobiel Geld provider. Betalingen worden veilig verwerkt en je ontvangt bevestiging via email en SMS.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div style="display: flex; align-items: flex-start; gap: 20px; padding: 30px; background-color: var(--light); border-radius: 10px;">
+                    <div style="background-color: var(--accent); color: var(--dark); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; flex-shrink: 0;">3</div>
+                    <div>
+                        <h3 class="lang-en {% if language == 'en' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 15px;">Monthly Draw</h3>
+                        <h3 class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 15px;">Maandelijkse Trekking</h3>
+                        <p class="lang-en {% if language == 'en' %}active{% endif %}" style="line-height: 1.6;">
+                            Once we reach 5,000 participants, we conduct a transparent random draw. All eligible participants have equal chances of winning. Winners are contacted directly and publicly announced.
+                        </p>
+                        <p class="lang-nl {% if language == 'nl' %}active{% endif %}" style="line-height: 1.6;">
+                            Zodra we 5.000 deelnemers bereiken, voeren we een transparante willekeurige trekking uit. Alle in aanmerking komende deelnemers hebben gelijke kansen om te winnen. Winnaars worden direct gecontacteerd en publiekelijk aangekondigd.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section">
+    <div class="container">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <h2 class="lang-en {% if language == 'en' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 20px;">
+                Ready to Get Started?
+            </h2>
+            <h2 class="lang-nl {% if language == 'nl' %}active{% endif %}" style="color: var(--gh-green); margin-bottom: 20px;">
+                Klaar om te Beginnen?
+            </h2>
+            
+            <p class="lang-en {% if language == 'en' %}active{% endif %}" style="margin-bottom: 30px; font-size: 1.1rem; line-height: 1.5;">
+                Join thousands of job seekers who are already taking advantage of this opportunity to secure employment or basic income.
+            </p>
+            <p class="lang-nl {% if language == 'nl' %}active{% endif %}" style="margin-bottom: 30px; font-size: 1.1rem; line-height: 1.5;">
+                Sluit je aan bij duizenden werkzoekenden die al profiteren van deze kans om werk of basisinkomen te krijgen.
+            </p>
+            
+            <a href="/registration/" class="btn btn-accent" style="font-size: 1.1rem; padding: 16px 32px;">
+                <span class="lang-en {% if language == 'en' %}active{% endif %}">Register Now - GHS 15/month</span>
+                <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Nu Registreren - GHS 15/maand</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

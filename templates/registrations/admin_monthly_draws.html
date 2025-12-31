@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - Jobmarkt Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --secondary: #28a745;
+            --accent: #ffc107;
+            --dark: #1a1a1a;
+            --gray: #6c757d;
+            --light: #f8f9fa;
+            --border: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .admin-header {
+            background-color: var(--dark);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .admin-nav {
+            background-color: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 15px 0;
+            color: var(--gray);
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .admin-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0b5ed7;
+        }
+
+        .btn-success {
+            background-color: var(--secondary);
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .draws-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .draw-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s;
+        }
+
+        .draw-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .draw-card.active {
+            border-left-color: var(--secondary);
+        }
+
+        .draw-card.completed {
+            border-left-color: var(--accent);
+        }
+
+        .draw-card.cancelled {
+            border-left-color: #dc3545;
+            opacity: 0.7;
+        }
+
+        .draw-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 20px;
+        }
+
+        .draw-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin: 0 0 10px 0;
+        }
+
+        .draw-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-pending {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .badge-active {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge-completed {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .badge-cancelled {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .draw-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+
+        .progress-container {
+            background-color: var(--light);
+            height: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            height: 100%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .draw-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--gray);
+            opacity: 0.3;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .draw-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i> Jobmarkt Admin
+            </div>
+            <div class="user-info">
+                <span>{{ user.username }}</span>
+                <a href="/user/logout/" style="color: white; text-decoration: none;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Navigation -->
+    <nav class="admin-nav">
+        <div class="nav-container">
+            <a href="/admin-dashboard/" class="nav-link">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="/admin-registrations/" class="nav-link">
+                <i class="fas fa-users"></i> Registrations
+            </a>
+            <a href="/admin-monthly-draws/" class="nav-link active">
+                <i class="fas fa-calendar-alt"></i> Monthly Draws
+            </a>
+            <a href="/admin-winners/" class="nav-link">
+                <i class="fas fa-trophy"></i> Winners
+            </a>
+            <a href="/admin-jobs/" class="nav-link">
+                <i class="fas fa-briefcase"></i> Jobs
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-calendar-alt"></i> {{ page_title }}
+            </h1>
+            <button class="btn btn-success" onclick="alert('Create draw feature coming soon!')">
+                <i class="fas fa-plus"></i> Create New Draw
+            </button>
+        </div>
+
+        <!-- Draws Grid -->
+        <div class="draws-grid">
+            {% if draws %}
+                {% for draw in draws %}
+                    <div class="draw-card {{ draw.status }}">
+                        <div class="draw-header">
+                            <div>
+                                <h2 class="draw-title">{{ draw.draw_month|date:"F Y" }}</h2>
+                                <div class="draw-date">
+                                    <i class="fas fa-clock"></i>
+                                    Created: {{ draw.created_date|date:"M d, Y H:i" }}
+                                </div>
+                            </div>
+                            <div>
+                                <span class="badge badge-{{ draw.status }}">
+                                    {{ draw.get_status_display }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="draw-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">{{ draw.current_participants }}</div>
+                                <div class="stat-label">Current</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">{{ draw.minimum_participants }}</div>
+                                <div class="stat-label">Minimum</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">
+                                    {% if draw.minimum_participants > 0 %}
+                                        {% widthratio draw.current_participants draw.minimum_participants 100 %}%
+                                    {% else %}
+                                        0%
+                                    {% endif %}
+                                </div>
+                                <div class="stat-label">Progress</div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="progress-container">
+                            {% if draw.minimum_participants > 0 %}
+                                {% widthratio draw.current_participants draw.minimum_participants 100 as progress %}
+                                <div class="progress-bar" style="width: {{ progress }}%;">
+                                    {{ progress }}%
+                                </div>
+                            {% else %}
+                                <div class="progress-bar" style="width: 0%;">
+                                    0%
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Draw Information -->
+                        <div style="margin: 15px 0; padding: 15px; background: var(--light); border-radius: 8px;">
+                            <div style="display: grid; gap: 10px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: var(--gray);">Ready for Draw:</span>
+                                    <strong style="color: {% if draw.is_ready_for_draw %}var(--secondary){% else %}var(--accent){% endif %};">
+                                        {% if draw.is_ready_for_draw %}
+                                            <i class="fas fa-check-circle"></i> Yes
+                                        {% else %}
+                                            <i class="fas fa-times-circle"></i> No
+                                        {% endif %}
+                                    </strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: var(--gray);">Winners Selected:</span>
+                                    <strong style="color: {% if draw.winners_selected %}var(--secondary){% else %}var(--gray){% endif %};">
+                                        {% if draw.winners_selected %}
+                                            <i class="fas fa-check-circle"></i> Yes
+                                        {% else %}
+                                            <i class="fas fa-times-circle"></i> No
+                                        {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="draw-actions">
+                            {% if draw.is_ready_for_draw and not draw.winners_selected %}
+                                <button class="btn btn-success btn-sm" onclick="alert('Select winners feature coming soon!')">
+                                    <i class="fas fa-random"></i> Select Winners
+                                </button>
+                            {% endif %}
+
+                            {% if draw.status == 'pending' %}
+                                <button class="btn btn-sm" onclick="alert('Activate draw feature coming soon!')">
+                                    <i class="fas fa-play"></i> Activate
+                                </button>
+                            {% endif %}
+
+                            <button class="btn btn-sm" onclick="alert('View details feature coming soon!')">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+
+                            {% if draw.status != 'completed' and draw.status != 'cancelled' %}
+                                <button class="btn btn-sm" style="background-color: #dc3545;" onclick="confirm('Cancel this draw?') && alert('Cancel feature coming soon!')">
+                                    <i class="fas fa-ban"></i> Cancel
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-calendar-times"></i>
+                    <h3>No Monthly Draws Found</h3>
+                    <p>Create your first monthly draw to get started.</p>
+                    <button class="btn btn-success" onclick="alert('Create draw feature coming soon!')">
+                        <i class="fas fa-plus"></i> Create New Draw
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

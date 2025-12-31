@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Make Payment - Jobmarkt{% endblock %}
+
+{% block extra_css %}
+<style>
+    .payment-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .payment-card {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .payment-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .payment-icon {
+        font-size: 4rem;
+        color: var(--secondary);
+        margin-bottom: 20px;
+    }
+
+    .payment-title {
+        font-size: 2rem;
+        color: var(--dark);
+        margin-bottom: 10px;
+    }
+
+    .payment-subtitle {
+        color: var(--gray);
+        font-size: 1.1rem;
+    }
+
+    .amount-display {
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+        color: white;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        margin: 30px 0;
+    }
+
+    .amount-label {
+        font-size: 1rem;
+        opacity: 0.9;
+        margin-bottom: 10px;
+    }
+
+    .amount-value {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    .payment-info {
+        background: var(--light);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+    }
+
+    .info-label {
+        color: var(--gray);
+        font-weight: 500;
+    }
+
+    .info-value {
+        color: var(--dark);
+        font-weight: 600;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        background-color: var(--secondary);
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background-color: var(--gray);
+        margin-top: 15px;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .security-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        color: var(--gray);
+        font-size: 0.9rem;
+    }
+
+    .features-list {
+        margin: 30px 0;
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        background: var(--light);
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .feature-icon {
+        font-size: 1.5rem;
+        color: var(--secondary);
+        width: 40px;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+    <div class="payment-card">
+        <div class="payment-header">
+            <div class="payment-icon">
+                <i class="fas fa-credit-card"></i>
+            </div>
+            <h1 class="payment-title">
+                <span class="lang-en {% if language == 'en' %}active{% endif %}">Monthly Subscription</span>
+                <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Maandelijks Abonnement</span>
+            </h1>
+            <p class="payment-subtitle">
+                <span class="lang-en {% if language == 'en' %}active{% endif %}">Pay to enter this month's draw</span>
+                <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Betaal om deel te nemen aan de trekking van deze maand</span>
+            </p>
+        </div>
+
+        <div class="amount-display">
+            <div class="amount-label">
+                <span class="lang-en {% if language == 'en' %}active{% endif %}">Amount to Pay</span>
+                <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Te Betalen Bedrag</span>
+            </div>
+            <div class="amount-value">GHS {{ amount }}</div>
+            <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.9;">
+                <span class="lang-en {% if language == 'en' %}active{% endif %}">per month</span>
+                <span class="lang-nl {% if language == 'nl' %}active{% endif %}">per maand</span>
+            </div>
+        </div>
+
+        <div class="payment-info">
+            <div class="info-item">
+                <span class="info-label">
+                    <span class="lang-en {% if language == 'en' %}active{% endif %}">Name:</span>
+                    <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Naam:</span>
+                </span>
+                <span class="info-value">{{ registration.full_name }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Email:</span>
+                <span class="info-value">{{ registration.email }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">
+                    <span class="lang-en {% if language == 'en' %}active{% endif %}">Phone:</span>
+                    <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Telefoon:</span>
+                </span>
+                <span class="info-value">{{ registration.phone_number }}</span>
+            </div>
+        </div>
+
+        <div class="features-list">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div>
+                    <strong>
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">Automatic Entry</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Automatische Inschrijving</span>
+                    </strong>
+                    <div style="font-size: 0.9rem; color: var(--gray);">
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">You'll be entered into this month's draw automatically</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Je wordt automatisch ingeschreven voor de trekking van deze maand</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div>
+                    <strong>
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">Win Jobs or Income</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Win Banen of Inkomen</span>
+                    </strong>
+                    <div style="font-size: 0.9rem; color: var(--gray);">
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">Chance to win job positions or 1 year basic income</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Kans om baanposities of 1 jaar basisinkomen te winnen</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <strong>
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">Secure Payment</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Veilige Betaling</span>
+                    </strong>
+                    <div style="font-size: 0.9rem; color: var(--gray);">
+                        <span class="lang-en {% if language == 'en' %}active{% endif %}">Powered by Paystack - Ghana's trusted payment gateway</span>
+                        <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Mogelijk gemaakt door Paystack - Ghana's vertrouwde betaalgateway</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="payment_type" value="monthly">
+            <button type="submit" class="btn">
+                <i class="fas fa-lock"></i>
+                <span class="lang-en {% if language == 'en' %}active{% endif %}">Pay Now - GHS {{ amount }}</span>
+                <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Nu Betalen - GHS {{ amount }}</span>
+            </button>
+        </form>
+
+        <a href="/user/dashboard/" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i>
+            <span class="lang-en {% if language == 'en' %}active{% endif %}">Back to Dashboard</span>
+            <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Terug naar Dashboard</span>
+        </a>
+
+        <div class="security-badge">
+            <i class="fas fa-shield-alt"></i>
+            <span>
+                <span class="lang-en {% if language == 'en' %}active{% endif %}">Secured by Paystack</span>
+                <span class="lang-nl {% if language == 'nl' %}active{% endif %}">Beveiligd door Paystack</span>
+            </span>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Jobmarkt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--gh-green) 0%, var(--primary) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .login-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .login-form {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            border: 1px solid #f5c2c7;
+            color: #842029;
+        }
+        
+        .links {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .links a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>
+                <span class="lang-en active">Welcome Back!</span>
+                <span class="lang-nl">Welkom Terug!</span>
+            </h1>
+            <p>
+                <span class="lang-en active">Sign in to your Jobmarkt account</span>
+                <span class="lang-nl">Log in op je Jobmarkt account</span>
+            </p>
+        </div>
+        
+        <div class="login-form">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_username">
+                        <span class="lang-en active">Username</span>
+                        <span class="lang-nl">Gebruikersnaam</span>
+                    </label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div style="color: #dc3545; font-size: 0.9rem; margin-top: 5px;">
+                            {{ form.username.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_password">
+                        <span class="lang-en active">Password</span>
+                        <span class="lang-nl">Wachtwoord</span>
+                    </label>
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <div style="color: #dc3545; font-size: 0.9rem; margin-top: 5px;">
+                            {{ form.password.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="btn">
+                    <span class="lang-en active">Sign In</span>
+                    <span class="lang-nl">Inloggen</span>
+                </button>
+            </form>
+            
+            <div class="links">
+                <p>
+                    <span class="lang-en active">Don't have an account?</span>
+                    <span class="lang-nl">Geen account?</span>
+                    <a href="/user/register/">
+                        <span class="lang-en active">Register here</span>
+                        <span class="lang-nl">Registreer hier</span>
+                    </a>
+                </p>
+                <p>
+                    <a href="/">
+                        <span class="lang-en active">← Back to Home</span>
+                        <span class="lang-nl">← Terug naar Home</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
